@@ -1,4 +1,6 @@
 
+
+from cardeffect import *
 class card:
     def __init__(self, name, basemana, effect):
         
@@ -32,7 +34,8 @@ class cardlist:
                     dupecheck.append(x)
                     print(f"{str(x)} (x{self.list.count(x)})")
 
-    def getindexdict(self):
+
+    def choosecard(self):
 
         indexdict = {}
         index = 0
@@ -51,22 +54,44 @@ class cardlist:
                     index += 1
                     indexdict[index] = x
 
-        print(indexdict)
-        return indexdict
-
-    def showindexdict(self):
-        for x in 
-        
-    #wie willst du das machen??? get, show, beides???
+        for x, y in indexdict.items():
+            if x == 0:
+                if self == hand:
+                    print(f"[{x}]: None -> End Turn!")
+                else:
+                    print(f"[{x}]: None -> Return!")
             
+            else:
+                print(f"[{x}]: {y} (x{self.list.count(y)})")
+                     
+        while True:
+
+            choice = input("\nType the index of the card you want to choose: ")
+
+            try:
+                choice = int(choice)
+            except ValueError:
+                print(f"{choice} is not a number! Please enter a valid number! ")
+                continue
+            
+            if choice in indexdict.keys():
+                break
+            else:
+                print(f"{choice} is not a valid number! Please enter the number of the card you want to choose!")
+                continue
+
+        return indexdict[choice]
 
 
 strike = card("Strike", 1, "Deal 6 damage")
 defend = card("Defend", 1, "Gain 5 Block")
+slam = card("SLAM!", 3, "Deal 22 damage")
+defensive_jab = card("Defensive Jab", 1, "Deal 3 damage and gain 3 block")
+pocket_sand = card("Pocket Sand", 0, "Deal 2 damage")
+
 
 drawpile = cardlist("Draw Pile", [strike, strike, defend, defend])
 hand = cardlist("Hand", [strike, strike, strike])
 discardpile = cardlist("Discard Pile", [defend, strike, defend])
 deck = cardlist("Deck", [])
 
-discardpile.getindexdict()

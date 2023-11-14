@@ -1,4 +1,5 @@
 
+from player import *
 from copy import *
 from random import randint
 
@@ -15,15 +16,31 @@ class monster:
 
     def create(self):
         return monster(self.name, self.hprangemin, self.hprangemax)
+    
+    def attack(self, amount):
 
+        if player.block > 0:
+            if amount <= player.block:
+                player.block -= amount
 
-goblin = monster("Goblin", 14, 22)
-ghoul = monster("Ghoul", 5, 12)
+            else:
+                player.block = 0
+                amount -= player.block
+                player.hp -= amount
+
+    def getblock(self, amount):
+        self.block += amount
+
 
 def randcreate(list = []):
     choice = list[randint(0, len(list) -1)]
     creation = choice.create()
     return creation
+
+
+goblin = monster("Goblin", 14, 22)
+ghoul = monster("Ghoul", 5, 12)
+
 
 enemy1 = randcreate(monsterlist)
 enemy2 = randcreate(monsterlist)
